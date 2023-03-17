@@ -17,4 +17,4 @@ In this repository, I'll be sharing my journey in learning Go and applying it to
 
 
 ## Conclusion
-Thanks for checking out my repository! I hope that my progress in learning Go and network Automation with Go can inspire others to explore this powerful language and its potential for network automation.
+Thanks for checking out my repository! I hope that my progress in learning Go can inspire others to explore this powerful language and its potential for network automation.
