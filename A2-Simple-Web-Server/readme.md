@@ -1,6 +1,7 @@
-# Simple Web Server
+## Simple Web Server
 This project uses the package net/http which provides HTTP client and server implementations. In this case we utilize the HandleFunc method and ListenAndServe method.
 
+# Explanation
 HandleFunc
 - `Handle` and `HandleFunc` add handlers to DefaultServeMux.
 - First argument being the path.
