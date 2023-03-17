@@ -10,8 +10,9 @@ Go is a great language for network automation due to its fast execution speed, c
 ## Network Automation with Go
 In this repository, I'll be sharing my journey in learning Go and applying it to network automation. I believe that Go's strengths in concurrency and networking make it the perfect language for writing secure, readable, and production-ready network code. As I progress, I'll be sharing examples of how to use Go to automate network devices, build RESTful APIs, and more.
 
-# Table of contents
+## Table of contents
 [A1-Hello-World](A1-Hello-World)
+
 [A2-Simple-Web-Server](A2-Simple-Web-Server)
 
 
