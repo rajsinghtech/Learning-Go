@@ -1,0 +1,17 @@
+# Start from the official Golang image
+FROM golang:1.17.2-alpine
+
+# Set the current working directory inside the container
+WORKDIR /app
+
+# Copy the Go source code into the container
+COPY . .
+
+# Compile the Go code
+RUN go build -o webserver .
+
+# Expose port 8080
+EXPOSE 8080
+
+# Run the executable
+CMD ["./webserver"]
