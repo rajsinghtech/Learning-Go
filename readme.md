@@ -15,6 +15,8 @@ In this repository, I'll be sharing my journey in learning Go and applying it to
 
 [A2-Simple-Web-Server](A2-Simple-Web-Server)
 
+[A3-Containerizing-Web-Server](A3-Containerizing-Web-Server)
+
 
 ## Conclusion
 Thanks for checking out my repository! I hope that my progress in learning Go can inspire others to explore this powerful language and its potential for network automation.
