@@ -1,38 +1,49 @@
 package main
 
 import (
-	"fmt"
-	"net"
-	"os"
+    "fmt"
+    "net"
+    "time"
+	"os/exec"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, "Usage: %s <ip-address>\n", os.Args[0])
-		os.Exit(1)
-	}
+    // Replace with your subnet in CIDR notation
+    subnet := "192.168.1.0/24"
 
-	ip := net.ParseIP(os.Args[1])
-	if ip == nil {
-		fmt.Fprintf(os.Stderr, "Invalid IP address: %q\n", os.Args[1])
-		os.Exit(1)
-	}
+    // Parse the subnet
+    ip, ipnet, err := net.ParseCIDR(subnet)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
 
-	ones, bits := ip.DefaultMask().Size()
-	network := ip.Mask(net.CIDRMask(ones, bits))
+    // Loop through all the IP addresses in the subnet
+    for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); inc(ip) {
+        go func(ip net.IP) {
+            // Ping the IP address
+            if err := ping(ip.String()); err != nil {
+                fmt.Printf("Ping failed for %s: %s\n", ip, err)
+            } else {
+                fmt.Printf("%s is up\n", ip)
+            }
+        }(ip)
+    }
 
-	for i := 1; i <= 254; i++ {
-		addr := net.IPv4(network[0], network[1], network[2], byte(i))
-		go ping(addr.String())
-	}
+    // Wait for pings to finish
+    time.Sleep(10 * time.Second)
 }
 
-func ping(ipAddr string) {
-	conn, err := net.Dial("ip4:icmp", ipAddr)
-	if err != nil {
-		fmt.Printf("%s is down\n", ipAddr)
-		return
-	}
-	defer conn.Close()
-	fmt.Printf("%s is up\n", ipAddr)
+func ping(ip string) error {
+    cmd := exec.Command("ping", "-c", "1", "-W", "1", ip)
+    return cmd.Run()
+}
+
+func inc(ip net.IP) {
+    for j := len(ip) - 1; j >= 0; j-- {
+        ip[j]++
+        if ip[j] > 0 {
+            break
+        }
+    }
 }
